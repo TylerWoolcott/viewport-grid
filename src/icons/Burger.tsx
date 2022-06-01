@@ -10,3 +10,4 @@ export function Burger() {
     </svg>
   );
 }
+
