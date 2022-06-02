@@ -103,6 +103,7 @@ const ViewportGrid = (props: (toggleProps & rowsProps & columnProps)) => {
     return (
         <div className={`${toggleSidebar ? 'container-closed-seven-rows-eight-columns' : 'container-seven-rows-eight-columns'}`}>
                {/* 7 x 8 */}
+            {/* <div className="seven-rows-eight-columns-item">Seven Rows X Eight Columns</div>
             <div className="seven-rows-eight-columns-item">Seven Rows X Eight Columns</div>
             <div className="seven-rows-eight-columns-item">Seven Rows X Eight Columns</div>
             <div className="seven-rows-eight-columns-item">Seven Rows X Eight Columns</div>
@@ -157,8 +158,7 @@ const ViewportGrid = (props: (toggleProps & rowsProps & columnProps)) => {
             <div className="seven-rows-eight-columns-item">Seven Rows X Eight Columns</div>
             <div className="seven-rows-eight-columns-item">Seven Rows X Eight Columns</div>
             <div className="seven-rows-eight-columns-item">Seven Rows X Eight Columns</div>
-            <div className="seven-rows-eight-columns-item">Seven Rows X Eight Columns</div>
-            <div className="seven-rows-eight-columns-item">Seven Rows X Eight Columns</div>
+            <div className="seven-rows-eight-columns-item">Seven Rows X Eight Columns</div> */}
                {/* 7 x 7 */}
             {/* <div className="seven-rows-seven-columns-item">Seven Rows X Seven Columns</div>
             <div className="seven-rows-seven-columns-item">Seven Rows X Seven Columns</div>

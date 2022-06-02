@@ -1,29 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import "./App.scss";
 import Sidebar from "./components/Sidebar";
 import ViewportGrid from "./components/ViewportGrid";
 
-
-// const Heading = ({ title }: { title: string, className: string }) => <h2>{title}</h2>
-
-// type BoxProps = {
-//   children: React.ReactNode;
-// }
-
-// const Box = (props: BoxProps) => {
-//   return <div
-//   style={{
-//     padding: "1rem",
-//     fontWeight: "bold",
-//     color: "red",
-//   }}
-//   >
-//     {props.children}
-//     </div>
-// }
-
-
-
+//useRef removing div stops it from updating the size of viewport 
+//useRef adding extra rows outside of viewport
 
 /**
  * App Component
@@ -34,66 +15,79 @@ export function App() {
   const [column, setColumn] = useState<number>(1);
   const [rows, setRows] = useState([] as number[]);
   const [columns, setColumns] = useState([] as number[]);
-  // const [inputfieldsToAdd, setInputfieldsToAdd] = useState(1);
-  // const [committedFieldsToAdd, setCommittedFieldsToAdd] = useState(0);
+  const [width, setWidth] = useState<number>(0);
+  const [height, setHeight] = useState<number>(0);
+  const gridRef = useRef<HTMLDivElement>(null);
 
-  function generateGrid () {
-    rows.length = 0;
-    columns.length = 0;
-    for (let i = 0; i < row; i++) {
-      rows.push(i);
+  useLayoutEffect(() => {
+    getGridSize();
+    console.log('hello', gridRef)
+  })
+
+  const getGridSize = () => {
+    if (gridRef.current) {
+    const newWidth = gridRef.current.clientWidth;
+    setWidth(newWidth);
+
+    const newHeight = gridRef.current.clientHeight;
+    setHeight(newHeight);
     }
-    for (let j = 0; j < column; j++) {
-      columns.push(j);
+  };
+
+  useLayoutEffect(() => {
+    window.addEventListener("resize", getGridSize);
+    return () => {
+      window.removeEventListener("resize", getGridSize);
     }
-    setRows((t) => [...rows]);
-    setColumns((t) => [...columns]);
+}, [])
+
+function generateGrid () {
+  rows.length = 0;
+  columns.length = 0;
+  for (let i = 0; i < row; i++) {
+    rows.push(i);
   }
+  for (let j = 0; j < column; j++) {
+    columns.push(j);
+  }
+  setRows((t) => [...rows]);
+  setColumns((t) => [...columns]);
+}
+
+  useEffect(() => {
+    generateGrid();
+  }, [row, column]);
+
+  const gridColumnStyle =  columns.reduce((prevCol, currentCol) => prevCol + '1fr ', '');
+  const gridRowStyle =  rows.reduce((prevRow, currentRow) => prevRow + '1fr ', '');
   
   return <div className="App">
     <Sidebar row={row} setRow={setRow} column={column} setColumn={setColumn} setToggleSidebar={setToggleSidebar} toggleSidebar={toggleSidebar}/>
-    <ViewportGrid row={row} setRow={setRow} column={column} setColumn={setColumn} toggleSidebar={toggleSidebar} />
-    {/* <Heading className="heading" title="Hello"/>
-    <Box>
-      Hi There
-    </Box> */}
-         <div>
-        Row:
-        <input
-          type="number"
-          value={row}
-          onChange={(e) =>
-            setRow(parseInt(e.currentTarget.value, 10))
-          }
-        />
-      </div>
+    {/* <ViewportGrid row={row} setRow={setRow} column={column} setColumn={setColumn} toggleSidebar={toggleSidebar} /> */}
 
-      <div>
-        Column:
-        <input
-          type="number"
-          value={column}
-          onChange={(e) =>
-            setColumn(parseInt(e.currentTarget.value, 10))
-          }
-          />
-      </div>
-      <button onClick={generateGrid}>Generate Grid</button>
       <>
       {rows.length !== 0 ? (
-        <div className={`${toggleSidebar ? 'container-closed-seven-rows-eight-columns' : 'container-seven-rows-eight-columns'}`} >
+        <div 
+          style={{gridTemplateColumns: gridColumnStyle, gridTemplateRows: gridRowStyle}}
+          className={`${toggleSidebar ? 'container-closed-seven-rows-eight-columns' : 'container-seven-rows-eight-columns'}`} >
             {rows.map((i) => {
               return (
                 <>
                 {/* <div
+                  ref={gridRef}
                   key={"div" + i}
-                  style={{ color: i % 2 !== 0 ? "blue" : "black" }}
                 >
                 </div> */}
                   {columns.map((j) => {
                     return (
-                      <div className="five-rows-five-columns-item" key={i + "div" + j}>
-                        {i},{j}
+                      <div 
+                        ref={gridRef}
+                        className="five-rows-five-columns-item" key={i + "div" + j}
+                      >
+                        {/* {i},{j} */}
+                        {width && <p>{width}</p>}
+                        X
+                        {height && <p>{height}</p>}
                       </div>
                     );
                   })}
@@ -103,30 +97,6 @@ export function App() {
         </div>
       ) : null}
       </>
-      {/* <button
-        onClick={() => {
-          setCommittedFieldsToAdd(inputfieldsToAdd);
-        }}
-      >
-        Add fields
-      </button> */}
-      {/* {fields} */}
-      {/* <div className="container-closed-one-row-two-columns">
-      {[...Array(row)].map(
-        (value: undefined, index: number) => (
-          <Field id={index + 1} key={index} />
-        )
-      )}
-       {[...Array(column)].map(
-        (value: undefined, index: number) => (
-          <Field id={index + 1} key={index} />
-        )
-      )}
-      </div> */}
   </div>;
 }
 
-// const Field = ({ id }: { id: number }) => (
-//   <div id={`div${id}`} className="two-rows-two-columns-item">One Row x One Item {id}</div>
-     
-// );

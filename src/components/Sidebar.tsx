@@ -5,28 +5,43 @@ import { Burger } from "../icons/Burger";
 //     onClick: () => void;
 //   }
 
+
 interface toggleProps {
-    toggleSidebar: boolean;
-    setToggleSidebar: (value: boolean) => void;
+    toggleSidebar?: boolean;
+    setToggleSidebar?: (value: boolean) => void;
 }
 
 interface rowsProps {
-    row: number;
-    setRow: (value: number) => void;
+    row?: number;
+    setRow?: (value: number) => void;
 }
 
 interface columnProps {
-    column: number;
-    setColumn: (value: number) => void;
+    column?: number;
+    setColumn?: (value: number) => void;
 }
 
-const Sidebar = (props: (toggleProps & rowsProps & columnProps)) => {
+export const Sidebar = (props: (toggleProps & rowsProps & columnProps)) => {
     // const [toggleSidebar, setToggleSidebar] = useState<boolean>(false);
     const { toggleSidebar, setToggleSidebar, row, setRow, column, setColumn } = props;
 
     const handleToggleSidebar = () => {
         setToggleSidebar(!toggleSidebar);
     }
+
+    const handleRowChange = event => {
+        let { value, min, max } = event.target;
+        value = Math.max(Number(min), Math.min(Number(max), Number(value)));
+    
+        setRow(value)
+      };
+
+      const handleColumnChange = event => {
+        let { value, min, max } = event.target;
+        value = Math.max(Number(min), Math.min(Number(max), Number(value)));
+    
+        setColumn(value)
+      };
 
     return (
         <>
@@ -35,21 +50,25 @@ const Sidebar = (props: (toggleProps & rowsProps & columnProps)) => {
                     <Burger />
                 </button>
                 <form className="form">
-                    <label className="row-label">
+                    <label role="row" className="row-label">
                         Rows
                         <input 
                             type="number" 
+                            min="1"
+                            max="10"
                             value={row}
-                            onChange={(e) => setRow(parseInt(e.target.value))}
+                            onChange={handleRowChange}
                             name="rows" 
                         />
                     </label>
-                    <label className="column-label">
+                    <label role="contentinfo" className="column-label">
                         Columns
                         <input 
                             type="number" 
+                            min="1"
+                            max="10"
                             value={column}
-                            onChange={(e) => setColumn(parseInt(e.target.value))}
+                            onChange={handleColumnChange}
                             name="columns" 
                         />
                     </label>
@@ -74,3 +93,4 @@ const Sidebar = (props: (toggleProps & rowsProps & columnProps)) => {
 // }
 
 export default Sidebar;
+
