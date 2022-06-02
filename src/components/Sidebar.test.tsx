@@ -21,3 +21,13 @@ test("Renders Rows", () => {
   expect(labelElement).toHaveAttribute("role", "row");
 });
 
+test("handles onClick", () => {
+    const onClick = jest.fn();
+    render(<Sidebar onClick={onClick} />);
+    const element = screen.getByText("Rows");
+    expect(element).toBeInTheDocument();
+    const labelElement = screen.getByRole("row");
+    expect(labelElement).toHaveTextContent("Rows");
+    expect(labelElement).toHaveAttribute("role", "row");
+  });
+

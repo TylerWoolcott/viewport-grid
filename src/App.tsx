@@ -5,6 +5,8 @@ import ViewportGrid from "./components/ViewportGrid";
 
 //useRef removing div stops it from updating the size of viewport 
 //useRef adding extra rows outside of viewport
+//test sidebar button onClick
+//test getGridSize function in useEffect 
 
 /**
  * App Component
