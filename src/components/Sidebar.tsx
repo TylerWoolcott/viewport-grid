@@ -1,11 +1,6 @@
 // import React, { useState } from "react";
 import { Burger } from "../icons/Burger";
 
-// interface BurgerProps extends React.ComponentProps<"button"> {
-//     onClick: () => void;
-//   }
-
-
 interface toggleProps {
     toggleSidebar?: boolean;
     setToggleSidebar?: (value: boolean) => void;
@@ -22,7 +17,6 @@ interface columnProps {
 }
 
 export const Sidebar = (props: (toggleProps & rowsProps & columnProps)) => {
-    // const [toggleSidebar, setToggleSidebar] = useState<boolean>(false);
     const { toggleSidebar, setToggleSidebar, row, setRow, column, setColumn } = props;
 
     const handleToggleSidebar = () => {
@@ -46,7 +40,7 @@ export const Sidebar = (props: (toggleProps & rowsProps & columnProps)) => {
     return (
         <>
             <div className={`${toggleSidebar ? 'sidebar-closed' : 'sidebar-open'}`}>
-                <button className="sidebar-button" onClick={handleToggleSidebar}>
+                <button className="sidebar-button" data-testid="btn-sidebar" onClick={handleToggleSidebar}>
                     <Burger />
                 </button>
                 <form className="form">
@@ -73,24 +67,10 @@ export const Sidebar = (props: (toggleProps & rowsProps & columnProps)) => {
                         />
                     </label>
                 </form>
-                {/* {[...Array(rows)].map(
-                    (value: undefined, index: number) => (
-                        <Row id={index + 1} key={index} />
-                    )
-                )} */}
             </div>
         </>
     )
 }
-
-// const Row = (props: { id: number } ) => {
-//     const { id } = props;
-//     return (
-//         <div>
-//             <div id={`div${id}`}></div>
-//         </div>
-//     )
-// }
 
 export default Sidebar;
 

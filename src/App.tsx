@@ -3,11 +3,6 @@ import "./App.scss";
 import Sidebar from "./components/Sidebar";
 import ViewportGrid from "./components/ViewportGrid";
 
-//useRef removing div stops it from updating the size of viewport 
-//useRef adding extra rows outside of viewport
-//test sidebar button onClick
-//test getGridSize function in useEffect 
-
 /**
  * App Component
  */
@@ -23,7 +18,6 @@ export function App() {
 
   useLayoutEffect(() => {
     getGridSize();
-    console.log('hello', gridRef)
   })
 
   const getGridSize = () => {
@@ -52,8 +46,8 @@ function generateGrid () {
   for (let j = 0; j < column; j++) {
     columns.push(j);
   }
-  setRows((t) => [...rows]);
-  setColumns((t) => [...columns]);
+  setRows((g) => [...rows]);
+  setColumns((g) => [...columns]);
 }
 
   useEffect(() => {
@@ -70,26 +64,20 @@ function generateGrid () {
       <>
       {rows.length !== 0 ? (
         <div 
+          ref={gridRef}
           style={{gridTemplateColumns: gridColumnStyle, gridTemplateRows: gridRowStyle}}
-          className={`${toggleSidebar ? 'container-closed-seven-rows-eight-columns' : 'container-seven-rows-eight-columns'}`} >
+          className={`${toggleSidebar ? 'container-full' : 'container-collapsed'}`} >
             {rows.map((i) => {
               return (
                 <>
-                {/* <div
-                  ref={gridRef}
-                  key={"div" + i}
-                >
-                </div> */}
                   {columns.map((j) => {
                     return (
                       <div 
-                        ref={gridRef}
-                        className="five-rows-five-columns-item" key={i + "div" + j}
+                        className="viewport-items" key={i + "div" + j}
                       >
-                        {/* {i},{j} */}
-                        {width && <p>{width}</p>}
+                        {width && <span>{Math.round(width / columns.length)}</span>}
                         X
-                        {height && <p>{height}</p>}
+                        {height && <span>{Math.round(height / rows.length)}</span>}
                       </div>
                     );
                   })}

@@ -1,6 +1,6 @@
 import React from 'react';
-import { render, screen } from "@testing-library/react";
-import { Sidebar } from "./Sidebar";
+import { render, screen, fireEvent } from "@testing-library/react";
+import { Sidebar } from "../components/Sidebar";
 
 test("Renders Columns", () => {
   render(<Sidebar />);
@@ -23,11 +23,21 @@ test("Renders Rows", () => {
 
 test("handles onClick", () => {
     const onClick = jest.fn();
-    render(<Sidebar onClick={onClick} />);
-    const element = screen.getByText("Rows");
-    expect(element).toBeInTheDocument();
-    const labelElement = screen.getByRole("row");
-    expect(labelElement).toHaveTextContent("Rows");
-    expect(labelElement).toHaveAttribute("role", "row");
+    render(<Sidebar setToggleSidebar={onClick} />);
+    fireEvent.click(screen.getByTestId("btn-sidebar"));
+    expect(onClick).toHaveBeenCalled();
   });
+
+test('renders Sidebar spinbutton and names', () => {
+    render(<Sidebar />);
+    expect(screen.getByRole('spinbutton', { name: /Rows/i })).toBeInTheDocument();
+    expect(screen.getByRole('spinbutton', { name: /Columns/i })).toBeInTheDocument();
+    //   debug();
+    //   fireEvent.change(screen.getByRole('spinbutton'), {
+    //     target: { value: '' },
+    //   });
+    });
+
+
+  
 
