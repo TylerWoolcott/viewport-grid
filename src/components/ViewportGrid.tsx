@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 
-// pass toggleSidebar, row, column props to Viewport Grid component
+// passes toggleSidebar, row, column props to Viewport Grid component
 
 interface toggleProps {
     toggleSidebar?: boolean;

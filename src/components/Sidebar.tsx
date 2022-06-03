@@ -1,7 +1,7 @@
 import React from "react";
 import { Burger } from "../icons/Burger";
 
-// pass toggleSidebar, setToggleSidebar, row, setRow, column, and setColumn, props to Sidebar component
+// passes toggleSidebar, setToggleSidebar, row, setRow, column, and setColumn, props to Sidebar component
 
 interface toggleProps {
     toggleSidebar?: boolean;
