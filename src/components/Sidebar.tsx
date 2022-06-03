@@ -1,5 +1,7 @@
-// import React, { useState } from "react";
+import React from "react";
 import { Burger } from "../icons/Burger";
+
+// pass toggleSidebar, setToggleSidebar, row, setRow, column, and setColumn, props to Sidebar component
 
 interface toggleProps {
     toggleSidebar?: boolean;
@@ -23,6 +25,8 @@ export const Sidebar = (props: (toggleProps & rowsProps & columnProps)) => {
         setToggleSidebar(!toggleSidebar);
     }
 
+    // require Row / Column values to be between 1-10
+
     const handleRowChange = event => {
         let { value, min, max } = event.target;
         value = Math.max(Number(min), Math.min(Number(max), Number(value)));
@@ -40,33 +44,35 @@ export const Sidebar = (props: (toggleProps & rowsProps & columnProps)) => {
     return (
         <>
             <div className={`${toggleSidebar ? 'sidebar-closed' : 'sidebar-open'}`}>
-                <button className="sidebar-button" data-testid="btn-sidebar" onClick={handleToggleSidebar}>
-                    <Burger />
-                </button>
-                <form className="form">
-                    <label role="row" className="row-label">
-                        Rows
-                        <input 
-                            type="number" 
-                            min="1"
-                            max="10"
-                            value={row}
-                            onChange={handleRowChange}
-                            name="rows" 
-                        />
-                    </label>
-                    <label role="contentinfo" className="column-label">
-                        Columns
-                        <input 
-                            type="number" 
-                            min="1"
-                            max="10"
-                            value={column}
-                            onChange={handleColumnChange}
-                            name="columns" 
-                        />
-                    </label>
-                </form>
+                <div className={`${toggleSidebar ? 'hamburger-style-closed' : 'hamburger-style-open'}`}>
+                    <button className="sidebar-button" data-testid="btn-sidebar" onClick={handleToggleSidebar}>
+                        <Burger />
+                    </button>
+                </div>
+                <div className={`${toggleSidebar ? 'form-container-hidden' : 'form-container-visible'}`}>
+                    <form className={`${toggleSidebar ? 'form-hidden' : 'form-visible'}`}>
+                        <label role="row" className="row-label">Rows</label>
+                            <input 
+                                type="number" 
+                                min="1"
+                                max="10"
+                                data-testid="row-input"
+                                value={row}
+                                onChange={handleRowChange}
+                                name="rows" 
+                            />
+                        <label role="contentinfo" className="column-label">Columns</label>
+                            <input 
+                                type="number" 
+                                min="1"
+                                max="10"
+                                data-testid="column-input"
+                                value={column}
+                                onChange={handleColumnChange}
+                                name="columns" 
+                            />
+                    </form>
+                </div>
             </div>
         </>
     )

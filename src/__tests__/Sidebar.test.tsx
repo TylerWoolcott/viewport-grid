@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from "@testing-library/react";
 import { Sidebar } from "../components/Sidebar";
+import userEvent from '@testing-library/user-event';
 
 test("Renders Columns", () => {
   render(<Sidebar />);
@@ -28,15 +29,39 @@ test("handles onClick", () => {
     expect(onClick).toHaveBeenCalled();
   });
 
-test('renders Sidebar spinbutton and names', () => {
+test('render Sidebar row input', () => {
     render(<Sidebar />);
-    expect(screen.getByRole('spinbutton', { name: /Rows/i })).toBeInTheDocument();
-    expect(screen.getByRole('spinbutton', { name: /Columns/i })).toBeInTheDocument();
-    //   debug();
-    //   fireEvent.change(screen.getByRole('spinbutton'), {
-    //     target: { value: '' },
-    //   });
+
+    const inputEl = screen.getByTestId("row-input");
+    expect(inputEl).toBeInTheDocument();
+    expect(inputEl).toHaveAttribute("type", "number");
+    expect(inputEl).toHaveAttribute("min", "1");
+    expect(inputEl).toHaveAttribute("max", "10");
+    expect(inputEl).toHaveValue(null);
     });
+
+    test('render Sidebar column input', () => {
+      render(<Sidebar />);
+  
+      const inputEl = screen.getByTestId("column-input");
+      expect(inputEl).toBeInTheDocument();
+      expect(inputEl).toHaveAttribute("type", "number");
+      expect(inputEl).toHaveAttribute("min", "1");
+      expect(inputEl).toHaveAttribute("max", "10");
+      expect(inputEl).toHaveValue(null);
+      });
+
+      test('pass valid row number to test input field', () => {
+        render(<Sidebar />);     
+        
+        const inputEl = screen.getByTestId("row-input");
+        expect(inputEl).toHaveAttribute("type", "number");
+        // userEvent.type(inputEl, "5");
+
+        // expect(screen.getByTestId("row-input")).toHaveValue("5");
+        expect(screen.queryByTestId("error-msg")).not.toBeInTheDocument();
+    
+      })
 
 
   

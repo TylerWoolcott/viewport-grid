@@ -1,6 +1,8 @@
 $h-full: 100%;
-$bg-color-sidebar-open: royalblue;
-$bg-color-sidebar-closed: green;
+$bg-image-sidebar: radial-gradient( circle 610px at 5.2% 51.6%,  rgba(5,8,114,1) 0%, rgba(7,3,53,1) 97.5% );
+$box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+$bg-color: #f2f2f2;
+$border-style: 3px solid lightseagreen;
 
 .App {
   width: 100%;
@@ -8,16 +10,20 @@ $bg-color-sidebar-closed: green;
   min-height: 100vh;
 }
 
-button {
-  display: flex;
-  margin: 10px 0px 20px;
-  justify-content: flex-end;
+input[type=number], select, textarea{
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
+  font-size: 16px;
 }
 
 .sidebar-open {
   width: 200px;
   height: $h-full;
-  background-color: $bg-color-sidebar-open;
+  background-image: $bg-image-sidebar;
   position: fixed;
   top: 0;
   left: 0;
@@ -26,9 +32,9 @@ button {
 }
 
 .sidebar-closed {
-  width: 20px;
+  width: 40px;
   height: $h-full;
-  background-color: $bg-color-sidebar-closed;
+  background-image: $bg-image-sidebar;
   position: fixed;
   top: 0;
   left: 0;
@@ -36,18 +42,55 @@ button {
   z-index: 1;
 }
 
-.form {
-  margin: 50px 20px;
+.form-container-visible {
+  margin: 20px;
+  margin-top: 40px;
+  border-radius: 5px;
+  background-color: $bg-color;
+  padding: 15px;
+  box-shadow: $box-shadow;
 }
 
-.row-label {
-  display: flex;
-  flex-direction: column;
+.form-container-hidden {
+  display: none;
 }
 
-.column-label {
+.form-visible {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: left;
+}
+
+.form-hidden {
+  display: none;
+}
+
+label {
+  padding: 12px 12px 6px 0;
+  display: inline-block;
+}
+
+.hamburger-style-open {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: $bg-color;
+  border-radius: 3px;
+  box-shadow: $box-shadow;
+  margin: 4px;
+}
+
+.hamburger-style-closed {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  background-color: $bg-color;
+  border-radius: 3px;
+  box-shadow: $box-shadow;
+  margin: 4px;
 }
 
 .sidebar-button {
@@ -61,7 +104,7 @@ button {
 }
 
 .container-collapsed {
-  border: 3px solid pink;
+  border: $border-style;
   height: $h-full;
   min-height: 100vh;
   margin-left: 200px;
@@ -69,10 +112,10 @@ button {
 }
 
 .container-full {
-  border: 3px solid green;
+  border: $border-style;
   height: $h-full;
   min-height: 100vh;
-  margin-left: 20px;
+  margin-left: 40px;
   display: grid;
 }
 
