@@ -1,4 +1,4 @@
-# Motilent single-page Grid of Viewports assignment 
+# Motilent single-page Grid of Viewports Coding Test 
 
 ## Link to website
 https://viewport-grid.vercel.app/
@@ -61,13 +61,13 @@ I started off by creating a static CSS Grid layout with the required borders and
 
 I had to lift state up to the App component because both the Viewport Grid and Sidebar components needed to know if the button had been toggled. I made the requisite adjustments to the SCSS file to accomodate different sizes when the sidebar is open / closed. I stubbed out the Column / Rows form. 
 
-I quickly realised creating a component for each grid configuration would be impractical so I created a `GenerateGrid()` function that created rows / columns (a 2D array of divs) in the DOM whenever a user added / removed them using the inputs. Because there is no button to invoke the function, I placed it into a useEffect callback hook with the `row` and `column` in the dependency array so they can be tracked whenever they're updated. 
+I quickly realised creating a component for each grid configuration would be impractical so I created a `GenerateGrid()` function that created rows / columns (a 2D array of child divs) in the DOM whenever a user added / removed them using the form inputs. Because there is no button to invoke the function, I placed it into a useEffect callback hook with the `row` and `column` in the dependency array so they can be tracked whenever they're updated. 
 
-To add the `grid-template-columns` and `grid-template-rows` layout dynamically I stored them in two respective `const` variables and added them as an inline style to the top div. In effect this created a 'div factory' that dynamically added CSS Grid to the rows (eg. `grid-template-rows: repeat(n + 1, 1fr);`) and columns (eg. `grid-template-columns: repeat(n + 1, 1fr);`). I mapped over the rows and columns and rendered each div item with the appropriate border and styling. 
+To add the `grid-template-columns` and `grid-template-rows` layout dynamically I stored them in two respective `const` variables and added them as an inline style to the parent div. In effect this created a 'child div factory' that dynamically added CSS Grid to the rows (eg. `grid-template-rows: repeat(n + 1, 1fr);`) and columns (eg. `grid-template-columns: repeat(n + 1, 1fr);`). I mapped over the rows and columns and rendered each div item with the appropriate border and styling. 
 
-Next I used useRef, useLayoutEffect, together with useState to get, dynamically track and statefully update the viewport heights and widths via the `getClientHeight` and `getClientWidth` APIs. I then added the `gridRef` to the top div for tracking and rendered the `width` and `height` variables in the child div and divided them based on the `height.length` and `row.length` and `Math.round`ed them to get a whole number. 
+Next I used useRef, useLayoutEffect, together with useState hooks to get, dynamically track and statefully update the viewport heights and widths via the `getClientHeight` and `getClientWidth` APIs. I then added the `gridRef` to the parent div for tracking and rendering the `width` and `height` variables in the child div, and then divided them based on the `height.length` and `row.length`, and lastly `Math.round`ed them to get their values as integers. 
 
-In `Sidebar.tsx` I created two functions that required the Row / Column input values to be between 1-10 using `Math.min` and `Math.max` and storing them in `useState` variables. 
+In `Sidebar.tsx` I created two functions that required the Row / Column input values to be between 1-10 using `Math.min` and `Math.max` and stored them in `useState` variables. 
 
 For testing, I used `render`, `screen`, and `fireEvent` from React Testing Library to test the functionality of the Sidebar toggle button, row and column inputs, as well as the role and label fields. 
 
@@ -79,9 +79,9 @@ If I were to tackle a project of similar size then it would take me less than ha
 
 I believe I have done a good job in my presentation, in terms of clear code and commits. I have not tidied/rebased my commit messages so you can get a good idea of my progress and thoughts throughout development.
 
-I am pleased with the responsive and intuitive site which works nicely at different resolutions.
+I am pleased with the responsive and intuitive app which works nicely at different resolutions.
 
-## Would could I have done better?
+## What could I have done better?
 
 I would have liked to have done TDD. TDD does take a little longer but I believe it results in a more robust product. 
 
