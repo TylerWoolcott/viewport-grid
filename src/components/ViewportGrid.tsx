@@ -48,7 +48,7 @@ const ViewportGrid = (props: (toggleProps & rowsProps & columnProps)) => {
       }
   }, [])
 
-    // dynamically create rows and columns (divs) with useState and useEffect
+    // dynamically create rows and columns (child divs) with useState and useEffect
   
   function generateGrid () {
     rows.length = 0;
