@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from "@testing-library/react";
 import { Sidebar } from "../components/Sidebar";
-import userEvent from '@testing-library/user-event';
 
 test("Renders Columns", () => {
   render(<Sidebar />);
@@ -22,7 +21,7 @@ test("Renders Rows", () => {
   expect(labelElement).toHaveAttribute("role", "row");
 });
 
-test("handles onClick", () => {
+test("handles hamburger button onClick", () => {
     const onClick = jest.fn();
     render(<Sidebar setToggleSidebar={onClick} />);
     fireEvent.click(screen.getByTestId("btn-sidebar"));
@@ -51,16 +50,65 @@ test('render Sidebar row input', () => {
       expect(inputEl).toHaveValue(null);
       });
 
-      test('pass valid row number to test input field', () => {
+      test('pass valid row attributes to test input field', async () => {
         render(<Sidebar />);     
         
         const inputEl = screen.getByTestId("row-input");
         expect(inputEl).toHaveAttribute("type", "number");
-        // userEvent.type(inputEl, "5");
-
-        // expect(screen.getByTestId("row-input")).toHaveValue("5");
         expect(screen.queryByTestId("error-msg")).not.toBeInTheDocument();
     
+      })
+
+      const mockedSetRow = jest.fn
+
+      test('should render input row', async () => {
+        render(
+          <Sidebar 
+            row={5} 
+            setRow={mockedSetRow}
+          />);     
+        
+        const inputEl = screen.getByText(/Rows/i);
+        expect(inputEl).toBeInTheDocument();
+      })
+
+      const mockedSetColumn = jest.fn
+
+      test('should render input column', async () => {
+        render(
+          <Sidebar 
+            column={5} 
+            setColumn={mockedSetColumn}
+          />);     
+        
+        const inputEl = screen.getByText(/Rows/i);
+        expect(inputEl).toBeInTheDocument();
+      })
+
+      test('should be able to type in the row input', async () => {
+        render(
+          <Sidebar 
+            row={5} 
+            setRow={mockedSetRow}
+          />);     
+        
+        const inputEl = screen.getByTestId("row-input");
+        fireEvent.change(inputEl, { target: { value: "5"}})
+        expect(inputEl.value).toBe("5");
+        expect(inputEl).toBeInTheDocument()
+      })
+
+      test('should be able to type in the column input', async () => {
+        render(
+          <Sidebar 
+            column={5} 
+            setColumn={mockedSetColumn}
+          />);     
+        
+        const inputEl = screen.getByTestId("column-input");
+        fireEvent.change(inputEl, { target: { value: "5"}})
+        expect(inputEl.value).toBe("5");
+        expect(inputEl).toBeInTheDocument()
       })
 
 
