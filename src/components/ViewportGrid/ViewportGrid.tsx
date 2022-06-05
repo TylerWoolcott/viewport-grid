@@ -16,7 +16,7 @@ interface columnProps {
     setColumn?: (value: number) => void;
 }
 
-const ViewportGrid = (props: (toggleProps & rowsProps & columnProps)) => {
+export const ViewportGrid = (props: (toggleProps & rowsProps & columnProps)) => {
     const { toggleSidebar, row, column } = props;
 
     const [rows, setRows] = useState([] as number[]);
@@ -85,6 +85,7 @@ const ViewportGrid = (props: (toggleProps & rowsProps & columnProps)) => {
                     {columns.map((j) => {
                       return (
                         <div 
+                          data-testid="grid"
                           className="viewport-items" key={i + "div" + j}
                         >
                           {width && <span>{Math.round(width / columns.length)}</span>}

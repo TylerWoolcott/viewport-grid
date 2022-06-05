@@ -1,5 +1,5 @@
 import React from "react";
-import { Burger } from "../icons/Burger";
+import { Burger } from "../../icons/Burger";
 
 // passes toggleSidebar, setToggleSidebar, row, setRow, column, and setColumn, props to Sidebar component
 
@@ -45,7 +45,10 @@ export const Sidebar = (props: (toggleProps & rowsProps & columnProps)) => {
         <>
             <div className={`${toggleSidebar ? 'sidebar-closed' : 'sidebar-open'}`}>
                 <div className={`${toggleSidebar ? 'hamburger-style-closed' : 'hamburger-style-open'}`}>
-                    <button className="sidebar-button" data-testid="btn-sidebar" onClick={handleToggleSidebar}>
+                    <button 
+                        className="sidebar-button" 
+                        data-testid="btn-sidebar" 
+                        onClick={handleToggleSidebar}>
                         <Burger />
                     </button>
                 </div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.scss";
-import Sidebar from "./components/Sidebar";
-import ViewportGrid from "./components/ViewportGrid";
+import Sidebar from "./components/Sidebar/Sidebar";
+import ViewportGrid from "./components/ViewportGrid/ViewportGrid";
 
 export function App() {
   const [toggleSidebar, setToggleSidebar] = useState<boolean>(false);
