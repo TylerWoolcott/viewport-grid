@@ -67,7 +67,7 @@ export const ViewportGrid = (props: (toggleProps & rowsProps & columnProps)) => 
       generateGrid();
     }, [row, column]);
 
-    // dynamically add CSS Grid to the rows (eg. grid-template-rows: repeat(2, 1fr);) and columns (eg. grid-template-columns: repeat(2, 1fr);)  
+    // dynamically add CSS Grid to the rows (eg. grid-template-rows: repeat(n + 1, 1fr);) and columns (eg. grid-template-columns: repeat(n + 1, 1fr);)  
   
     const gridColumnStyle =  columns.reduce((prevCol, currentCol) => prevCol + '1fr ', '');
     const gridRowStyle =  rows.reduce((prevRow, currentRow) => prevRow + '1fr ', '');
